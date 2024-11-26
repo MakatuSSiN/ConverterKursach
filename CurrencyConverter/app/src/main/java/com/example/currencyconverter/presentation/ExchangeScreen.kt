@@ -83,8 +83,8 @@ private fun ExchangeScreen (
 
             ExchangeSection(
                 state = state,
-                onOpenCurrencyPicker = {
-                    isFromCurrency  -> isFromCurrencyPicker = isFromCurrency
+                onOpenCurrencyPicker = {isFromCurrency ->
+                    isFromCurrencyPicker = isFromCurrency
                     isDropDownOpen = true
                 }
             )
@@ -102,27 +102,27 @@ private fun ExchangeScreen (
                     state.allCurrencies.forEachIndexed { index, currency ->
                         Column {
                             if (index == 0) {
-                                HorizontalDivider()  // Разделитель перед первым элементом
+                                HorizontalDivider()
                             }
                             Text(
-                                text = "${currency.code} - ${currency.name}",  // Отображаем валюту
+                                text = "${currency.code} - ${currency.name}",
                                 color = MaterialTheme.colorScheme.onBackground,
                                 modifier = Modifier
                                     .clickable {
-                                        isDropDownOpen = false  // Закрываем меню при выборе
+                                        isDropDownOpen = false
                                         if (isFromCurrencyPicker) {
-                                            onAction(ExchangeAction.SelectedFrom(index))  // Выбираем валюту "из"
+                                            onAction(ExchangeAction.SelectedFrom(index))
                                         } else {
-                                            onAction(ExchangeAction.SelectedTo(index))  // Выбираем валюту "в"
+                                            onAction(ExchangeAction.SelectedTo(index))
                                         }
                                     }
                                     .padding(16.dp)
                             )
-                            HorizontalDivider()  // Разделитель после элемента
+                            HorizontalDivider()
                         }
                     }
                 } else {
-                    Text("Валюты не загружены", modifier = Modifier.padding(16.dp))  // Сообщение, если список пуст
+                    Text("Валюты не загружены", modifier = Modifier.padding(16.dp))
                 }
             }
         }
@@ -237,8 +237,8 @@ fun RowScope.Input(
 fun ExchangeSection(
     modifier: Modifier = Modifier,
     state: ExchangeState,
-    onOpenCurrencyPicker: (Boolean) -> Unit)
-{
+    onOpenCurrencyPicker: (Boolean) -> Unit
+) {
 
     Column(
         modifier = modifier.fillMaxSize(),
@@ -249,11 +249,10 @@ fun ExchangeSection(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            // Обработчик для открытия списка валют из
             Row(
                 modifier = Modifier
                     .clickable {
-                        onOpenCurrencyPicker(true)  // Передаем флаг в обработчик
+                        onOpenCurrencyPicker(true )
                     },
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -287,12 +286,11 @@ fun ExchangeSection(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            // Обработчик для открытия списка валют в
             Row(
                 modifier = Modifier
                     .clickable {
 
-                        onOpenCurrencyPicker(false)  // Передаем флаг в обработчик
+                        onOpenCurrencyPicker(false)
                     },
                 verticalAlignment = Alignment.CenterVertically
             ) {

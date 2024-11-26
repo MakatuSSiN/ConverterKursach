@@ -1,6 +1,7 @@
 package com.example.currencyconverter.di
 
 import com.example.currencyconverter.data.ExchangeRepoImpl
+import com.example.currencyconverter.data.UserPreferences
 import com.example.currencyconverter.domain.ConvertUser
 import com.example.currencyconverter.domain.ExchangeRepo
 import com.example.currencyconverter.presentation.ExchangeState
@@ -29,8 +30,8 @@ val coreModule = module {
     singleOf(::ExchangeRepoImpl).bind<ExchangeRepo>()
 
     single { ConvertUser(get()) }
-
-    viewModel {ExchangeVM(get(), get())}
+    single { UserPreferences (context = get()) }
+    viewModel {ExchangeVM(get(), get(), get())}
     single {
         HttpClient(CIO) {
             expectSuccess = true
