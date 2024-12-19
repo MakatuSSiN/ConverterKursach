@@ -13,7 +13,7 @@ class ExchangeRepoImpl (
 ): ExchangeRepo {
     private val tag = "ExchangeRepoImpl: "
     private val baseURL = "https://v6.exchangerate-api.com/v6/"
-    private val APIKEY = "3eba6af04c00f784a5cbb6ab"
+    private val APIKEY = "a3996c00403e73a091fdf964"
 
     override suspend fun convert(
         fromCurrency: String, toCurrency: String, amount: Double

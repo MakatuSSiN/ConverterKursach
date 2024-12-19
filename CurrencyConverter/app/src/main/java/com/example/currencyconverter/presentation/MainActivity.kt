@@ -30,7 +30,8 @@ class MainActivity : ComponentActivity() {
 
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Box(modifier = Modifier
-                        .background(MaterialTheme.colorScheme.secondaryContainer).padding(innerPadding)
+                        .background(MaterialTheme.colorScheme.secondaryContainer)
+                        .padding(innerPadding)
                         .fillMaxSize()
                     ) {
                         ExchangeScreenCore()

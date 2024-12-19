@@ -1,4 +1,5 @@
 package com.example.currencyconverter.presentation
+import android.view.RoundedCorner
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -37,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
@@ -67,11 +69,13 @@ private fun ExchangeScreen (
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Box(modifier = Modifier.weight(0.7f).fillMaxSize()
+        Box(modifier = Modifier.weight(1.1f).fillMaxSize() //растянутость верхней части
         ) {
-            Box(modifier = Modifier.fillMaxSize().offset(200.dp, (-40).dp).clip(CircleShape).background(MaterialTheme.colorScheme.tertiary.copy(0.1f))
+            Box(modifier = Modifier.fillMaxSize().offset(-160.dp, (-50).dp).clip(RectangleShape) //верхний шар сзади
+                .background(MaterialTheme.colorScheme.tertiary.copy(0.1f))
             )
-            Box(modifier = Modifier.fillMaxSize().offset((-280).dp, 150.dp).clip(CircleShape).background(MaterialTheme.colorScheme.inversePrimary.copy(0.3f)
+            Box(modifier = Modifier.fillMaxSize().offset((100).dp, 200.dp).clip(CircleShape) //нижний шар сзади
+                .background(MaterialTheme.colorScheme.inversePrimary.copy(0.1f)
             )
             )
             var isDropDownOpen by rememberSaveable {
@@ -127,7 +131,7 @@ private fun ExchangeScreen (
             }
         }
         InputSection(
-            modifier = Modifier.weight(1.3f),
+            modifier = Modifier.weight(1.3f), //растянутость клавы
             onAction = onAction
         )
     }
@@ -139,11 +143,11 @@ fun InputSection(
 ) {
     Column(
         modifier = modifier
-            .clip(RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
+            .clip(RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp)) //шар с клавы белый
             .background(MaterialTheme.colorScheme.background)
     ){
         Row (
-            modifier = Modifier.fillMaxWidth().weight(1f)
+            modifier = Modifier.fillMaxWidth().weight(1f) //ширина верхнего ряда клавы
         ){
             Input(text = "7") {
                 onAction(ExchangeAction.Input(it))
@@ -156,13 +160,13 @@ fun InputSection(
             }
             Input(
                 text = "C",
-                color = Color.Red
+                color = Color.White //цвет буквы С
             ) {
                 onAction(ExchangeAction.Clear)
             }
         }
         Row (
-            modifier = Modifier.fillMaxWidth().weight(1f)
+            modifier = Modifier.fillMaxWidth().weight(1f) //ширина второго ряда клавы
         ){
             Input(text = "4") {
                 onAction(ExchangeAction.Input(it))
@@ -176,7 +180,7 @@ fun InputSection(
             Input()
         }
         Row (
-            modifier = Modifier.fillMaxWidth().weight(1f)
+            modifier = Modifier.fillMaxWidth().weight(1f) // ширина 3 ряда клавы
         ){
             Input(text = "1") {
                 onAction(ExchangeAction.Input(it))
@@ -190,7 +194,7 @@ fun InputSection(
             Input()
         }
         Row (
-            modifier = Modifier.fillMaxWidth().weight(1f)
+            modifier = Modifier.fillMaxWidth().weight(1f) // ширина 4 ряда клавы
         ){
             Input(text = "00") {
                 onAction(ExchangeAction.Input(it))
@@ -223,12 +227,12 @@ fun RowScope.Input(
     Box(modifier = modifier.weight(1f).fillMaxHeight().clickable { onClick(text ?: "") }, contentAlignment = Alignment.Center)
     {
         if(text != null) {
-            Text(text = text, fontSize = 35.sp, fontFamily = FontFamily.Monospace, color = color)
+            Text(text = text, fontSize = 40.sp, fontFamily = FontFamily.Monospace, color = color) // размер всех символов клавы кроме стерки
         } else if (icon != null) {
             Icon(imageVector = icon,
                 contentDescription = null,
                 tint = color,
-                modifier = Modifier.size(30.dp))
+                modifier = Modifier.size(45.dp)) //размер кнопки стирания символа
         }
     }
 }
@@ -245,7 +249,7 @@ fun ExchangeSection(
         verticalArrangement = Arrangement.Center
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp), //расстояние между юсд и 1
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -259,9 +263,9 @@ fun ExchangeSection(
                 Text(
                     text = state.from.code,
                     fontFamily = FontFamily.Monospace,
-                    fontSize = 30.sp
+                    fontSize = 45.sp //размер текста юсд
                 )
-                Spacer(modifier = Modifier.width(3.dp))
+                Spacer(modifier = Modifier.width(0.dp)) // расстояние между стрелкой и юсд
                 Icon(
                     imageVector = Icons.AutoMirrored.Rounded.ArrowForwardIos,
                     contentDescription = "Selected from currency"
@@ -271,7 +275,7 @@ fun ExchangeSection(
             Text(
                 text = state.amount,
                 fontFamily = FontFamily.SansSerif,
-                fontSize = 30.sp,
+                fontSize = 35.sp, //размер единицы
                 textAlign = TextAlign.End,
                 maxLines = 1,
                 color = MaterialTheme.colorScheme.primary,
@@ -279,10 +283,10 @@ fun ExchangeSection(
             )
         }
 
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(90.dp)) // расстояние между верхней и нижней строкой юсд руб
 
         Row(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp), //отступ перед руб
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -297,9 +301,9 @@ fun ExchangeSection(
                 Text(
                     text = state.to.code,
                     fontFamily = FontFamily.Monospace,
-                    fontSize = 30.sp
+                    fontSize = 45.sp //размер текста руб
                 )
-                Spacer(modifier = Modifier.width(3.dp))
+                Spacer(modifier = Modifier.width(0.dp)) //отступ между руб и стрелкой
                 Icon(
                     imageVector = Icons.AutoMirrored.Rounded.ArrowForwardIos,
                     contentDescription = "Selected to currency"
@@ -309,7 +313,7 @@ fun ExchangeSection(
             Text(
                 text = state.result,
                 fontFamily = FontFamily.SansSerif,
-                fontSize = 30.sp,
+                fontSize = 35.sp, //хз че мб сумма второй валюты
                 textAlign = TextAlign.End,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
